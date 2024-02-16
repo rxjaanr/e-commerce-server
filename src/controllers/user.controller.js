@@ -60,9 +60,9 @@ const loginHandler = async (req, res, next) => {
           },
         });
       }
-      user.login_tokens = md5(user.firstName);
+      user.token = md5(user.firstName);
       user.save();
-      const { _id, password, __v, ...restData } = user._doc;
+      const { password, __v, ...restData } = user._doc;
       return res
         .status(200)
         .json({ message: "Login Success", result: restData });
@@ -79,9 +79,9 @@ const loginHandler = async (req, res, next) => {
 const logoutHandler = async (req, res) => {
   try {
     connectMongoDB();
-    const login_tokens = req.headers.authorization;
-    const user = await Users.findOne({ login_tokens });
-    user.login_tokens = null;
+    const token = req.headers.authorization;
+    const user = await Users.findOne({ token });
+    user.token = null;
     const saved = await user.save();
     if (saved) {
       return res.status(200).json({
@@ -96,5 +96,6 @@ const logoutHandler = async (req, res) => {
     return res.status(400).json(error);
   }
 };
+
 
 module.exports = { registerHandler, loginHandler, logoutHandler };

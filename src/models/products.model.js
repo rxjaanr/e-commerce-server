@@ -17,7 +17,7 @@ const schema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ["laptop", "handphone", "accessories"],
+    enum: ["gadget", "gaming", "fashion", "accessories"],
     required: true,
   },
   price: {
@@ -35,6 +35,15 @@ const schema = new mongoose.Schema({
         imageId: { type: String, default: null },
       },
     ],
+  },
+  discount: {
+    type: Number,
+    default: 0,
+  },
+  likedBy: {
+    type: [mongoose.SchemaTypes.ObjectId],
+    ref: "user",
+    default: [],
   },
 });
 

@@ -31,7 +31,7 @@ const schema = new mongoose.Schema({
     enum: ["USER", "ADMIN"],
     default: "USER",
   },
-  login_tokens: {
+  token: {
     type: String,
     default: null,
   },

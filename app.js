@@ -19,6 +19,10 @@ app.use(
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Helloooooooo");
+});
+
 app.use("/api/v1", route);
 
 app.use((req, res, next) => {

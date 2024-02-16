@@ -3,9 +3,9 @@ const Users = require("../models/users.model");
 
 const checkIsAdmin = async (req, res, next) => {
   connectMongoDB();
-  const login_tokens = req.headers.authorization;
-  const user = await Users.findOne({ login_tokens });
-  if (!user || !login_tokens || user.role !== "ADMIN") {
+  const token = req.headers.authorization;
+  const user = await Users.findOne({ token });
+  if (!user || !token || user.role !== "ADMIN") {
     return res.status(401).json({
       error: {
         message: "Unauthorized",
@@ -18,9 +18,9 @@ const checkIsAdmin = async (req, res, next) => {
 
 const checkAuth = async (req, res, next) => {
   connectMongoDB();
-  const login_tokens = req.headers.authorization;
-  const user = await Users.findOne({ login_tokens });
-  if (!user || !login_tokens) {
+  const token = req.headers.authorization;
+  const user = await Users.findOne({ token });
+  if (!user || !token) {
     return res.status(401).json({
       error: {
         message: "Unauthorized",
